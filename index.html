@@ -173,8 +173,8 @@
 
     function refreshAll() {
         fetchIPsAndHosts();
-        measurePing("http://8.8.8.8", document.getElementById("ping4"));
-        measurePing("http://[2001:4860:4860::8888]/", document.getElementById("ping6"));
+        measurePing("https://8.8.8.8", document.getElementById("ping4"));
+        measurePing("https://[2001:4860:4860::8888]/", document.getElementById("ping6"));
     }
 
     document.getElementById("refreshBtn").addEventListener("click", refreshAll);
