@@ -1,188 +1,103 @@
 <!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebPingChecker</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <style>
-        .fade-update {
-            transition: opacity 0.5s ease;
-            opacity: 0;
-        }
-        .fade-update.show {
-            opacity: 1;
-        }
-
-        .window {
-            border-radius: 1rem;
-            overflow: hidden;
-            background: var(--b1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--b3);
-        }
-
-        .window-header {
-            background: var(--b2);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-        }
-
-        .window-buttons {
-            display: flex;
-            gap: 0.4rem;
-        }
-
-        .window-buttons div {
-            width: 0.75rem;
-            height: 0.75rem;
-            border-radius: 50%;
-        }
-
-        .window-body {
-            padding: 1.5rem;
-            text-align: center;
-        }
-    </style>
-</head>
-
-<body class="bg-base-200 min-h-screen flex flex-col">
-<!-- Header -->
-<header class="navbar bg-primary text-primary-content shadow-sm">
-    <div class="flex-1">
-        <a class="btn btn-ghost text-xl">🌐 WebPingChecker</a>
-    </div>
-    <div class="flex-none">
-        <button id="refreshBtn" class="btn btn-accent btn-sm">更新</button>
-    </div>
-</header>
-
-<!-- Main -->
-<main class="flex-grow container mx-auto p-6">
-    <h2 class="text-2xl font-bold text-center mb-6">接続情報</h2>
-
-    <div class="grid md:grid-cols-2 gap-6">
-        <!-- IPv4 Window -->
-        <div class="window">
-            <div class="window-header">
-                <span>IPv4（8.8.8.8）</span>
-                <div class="window-buttons">
-                    <div class="bg-error"></div>
-                    <div class="bg-warning"></div>
-                    <div class="bg-success"></div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WebPingChecker</title>
+        <link href="./main.css" rel="stylesheet"/>
+    </head>
+    <body>
+    <header>
+        <h1>WebPingChecker</h1>
+        <button id="refreshBtn">更新</button>
+    </header>
+    <main>
+        <div class="grid">
+            <div class="window">
+                <div class="window-header">
+                    <span>IPv4</span>
+                    <div class="window-buttons">
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <p id="ipv4" class="ip fade-update">取得中...</p>
+                    <p id="host4" class="host fade-update">-</p>
                 </div>
             </div>
-            <div class="window-body">
-                <p id="ipv4" class="text-2xl font-mono text-secondary fade-update">取得中...</p>
-                <p id="host4" class="text-sm opacity-70 fade-update mt-1">ホスト名: -</p>
-                <p id="ping4" class="text-3xl font-mono text-success fade-update mt-2">計測中...</p>
-            </div>
-        </div>
-
-        <!-- IPv6 Window -->
-        <div class="window">
-            <div class="window-header">
-                <span>IPv6（2001:4860:4860::8888）</span>
-                <div class="window-buttons">
-                    <div class="bg-error"></div>
-                    <div class="bg-warning"></div>
-                    <div class="bg-success"></div>
+            <div class="window">
+                <div class="window-header">
+                    <span>IPv6</span>
+                    <div class="window-buttons">
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <p id="ipv6" class="ip fade-update">取得中...</p>
+                    <p id="host6" class="host fade-update">-</p>
                 </div>
             </div>
-            <div class="window-body">
-                <p id="ipv6" class="text-2xl font-mono text-secondary fade-update">取得中...</p>
-                <p id="host6" class="text-sm opacity-70 fade-update mt-1">ホスト名: -</p>
-                <p id="ping6" class="text-3xl font-mono text-success fade-update mt-2">計測中...</p>
+            <div class="window">
+                <div class="window-header">
+                    <span>Ping</span>
+                    <div class="window-buttons">
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <p id="ping4" class="ping fade-update">取得中...</p>
+                </div>
+            </div>
+            <div class="window">
+                <div class="window-header">
+                    <span>Region</span>
+                    <div class="window-buttons">
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <p id="region" class="org fade-update">取得中...</p>
+                </div>
+            </div>
+            <div class="window">
+                <div class="window-header">
+                    <span>AS</span>
+                    <div class="window-buttons">
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <p id="as" class="as fade-update">取得中...</p>
+                    <p id="asn" class="asn fade-update">-</p>
+                </div>
+            </div>
+            <div class="window">
+                <div class="window-header">
+                    <span>ORG</span>
+                    <div class="window-buttons">
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                        <div class="window-button"></div>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <p id="org" class="org fade-update">取得中...</p>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <div class="text-center mt-6 opacity-70 text-sm">
-        <p>更新ボタンを押して再取得できます。</p>
-    </div>
-</main>
-
-<!-- Footer -->
-<footer class="footer footer-center p-4 bg-base-300 text-base-content">
-    <aside>
-        <p>© 2025 WebPingChecker</p>
-    </aside>
-</footer>
-
-<script>
-    function updateWithFade(el, val) {
-        el.classList.remove("show");
-        setTimeout(() => {
-            el.textContent = val;
-            el.classList.add("show");
-        }, 150);
-    }
-
-    // --- IP・ホスト名取得 ---
-    async function fetchIPsAndHosts() {
-        try {
-            const ipv4 = await fetch("https://ipv4.nakn.jp/").then(r => r.text());
-            updateWithFade(document.getElementById("ipv4"), ipv4.trim());
-            fetchHostname(ipv4.trim(), "host4");
-        } catch {
-            updateWithFade(document.getElementById("ipv4"), "取得失敗");
-            updateWithFade(document.getElementById("host4"), "ホスト名: 取得失敗");
-        }
-
-        try {
-            const ipv6 = await fetch("https://ipv6.nakn.jp/").then(r => r.text());
-            updateWithFade(document.getElementById("ipv6"), ipv6.trim());
-            fetchHostname(ipv6.trim(), "host6");
-        } catch {
-            updateWithFade(document.getElementById("ipv6"), "取得失敗");
-            updateWithFade(document.getElementById("host6"), "ホスト名: 取得失敗");
-        }
-    }
-
-    // --- ホスト名逆引き ---
-    async function fetchHostname(ip, targetId) {
-        try {
-            const res = await fetch(`https://api-v3-jp.nakn.jp/ipreverse/${ip}`);
-            const data = await res.json();
-            if (data.status === "success") {
-                updateWithFade(document.getElementById(targetId), `ホスト名: ${data.ip}`);
-            } else {
-                updateWithFade(document.getElementById(targetId), "ホスト名: 不明");
-            }
-        } catch {
-            updateWithFade(document.getElementById(targetId), "ホスト名: 取得失敗");
-        }
-    }
-
-    // --- Ping計測 ---
-    async function measurePing(url, el) {
-        const start = performance.now();
-        try {
-            await fetch(url, { mode: "no-cors" });
-            const end = performance.now();
-            updateWithFade(el, Math.round(end - start) + " ms");
-        } catch {
-            updateWithFade(el, "タイムアウト");
-        }
-    }
-
-    function refreshAll() {
-        fetchIPsAndHosts();
-        measurePing("https://8.8.8.8", document.getElementById("ping4"));
-        measurePing("https://[2001:4860:4860::8888]/", document.getElementById("ping6"));
-    }
-
-    document.getElementById("refreshBtn").addEventListener("click", refreshAll);
-
-    window.addEventListener("load", () => {
-        document.querySelectorAll(".fade-update").forEach(el => el.classList.add("show"));
-        refreshAll();
-    });
-</script>
-</body>
+    <footer>© 2025 <a href="https://nakn.jp/" target="_blank">NAKN Internet</a></footer>
+    </body>
+    <script src="./main.js"></script>
 </html>
